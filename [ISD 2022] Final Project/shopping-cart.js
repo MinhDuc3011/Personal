@@ -40,7 +40,7 @@ const updateShoppingCartHTML = function () {  // 3
 	}
 	else {
 		document.querySelector('.checkout').classList.add('hidden');
-		parentElement.innerHTML = '<h4 class="empty">Your shopping cart is empty</h4>';
+		parentElement.innerHTML = '<h4 class="empty">Giỏ hàng đang trống</h4>';
 		cartSumPrice.innerHTML = '';
 	}
 }
