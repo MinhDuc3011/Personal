@@ -13,28 +13,32 @@ if (isset($_POST['submit'])) {
     // Truy vấn database
     $use = mysqli_query($con, "USE `manage_account`");
 
-    $select = mysqli_query($con, "SELECT * FROM `user_information` WHERE email = '$email' AND password = '$password'") or die('query failed');
+    $select = mysqli_query($con, "SELECT * FROM `user_information` WHERE email = '$email' AND phone = '$phone'") or die('query failed');
 
     
-        // $number = preg_match('@[0-9]@', $password);
-        // $uppercase = preg_match('@[A-Z]@', $password);
-        // $lowercase = preg_match('@[a-z]@', $password);
-        // !$number || !$uppercase || !$lowercase || !$specialChars || 
-        $specialChars = preg_match('@[^\w]@', $password);
-    
-      if ($password != $confirm_password) {
-        $message[] = "Mật khẩu nhập lại không chính xác";
-    } else if (mysqli_num_rows($select) > 0){ 
-        $message[] = "Người dùng đã tồn tại";
-    } else if(strlen($password) < 8 && strlen($password) > 16) {
-        $message[] = "Sai định dạng mật khẩu";
-    } else if(!$specialChars) {
-        $message[] = "Sai định dạng mật khẩu";
+    // $number = preg_match('@[0-9]@', $password);
+    // $uppercase = preg_match('@[A-Z]@', $password);
+    // $lowercase = preg_match('@[a-z]@', $password);
+    // !$number || !$uppercase || !$lowercase || !$specialChars || 
+    $specialChars = preg_match('@[^\w]@', $password);
+        
+    if (mysqli_num_rows($select) > 0){ 
+        $message[] = "Email và số điện thoại đã tồn tại";
     } else {
-        $crypt_password = mysqli_real_escape_string($con, md5($_POST['password'])); 
-        $insert = mysqli_query($con, "INSERT INTO `user_information`(name, email, phone, password) VALUES ('$name', '$email', '$phone', '$crypt_password')") or die('query failed');
-        header('location:login.php');
-    }
+        if ($password != $confirm_password) {
+        $message[] = "Mật khẩu nhập lại không chính xác";
+        } else if(strlen($password) < 8 || strlen($password) > 16) {
+            $message[] = "Sai định dạng mật khẩu";
+        } else if(strlen($phone) < 10 || strlen($phone) > 10) {
+            $message[] = "Sai định dạng số điện thoại";
+        } else if(!$specialChars) {
+            $message[] = "Sai định dạng mật khẩu";
+        } else {
+            $crypt_password = mysqli_real_escape_string($con, md5($_POST['password'])); 
+            $insert = mysqli_query($con, "INSERT INTO `user_information`(name, email, phone, password) VALUES ('$name', '$email', '$phone', '$crypt_password')") or die('query failed');
+            header('location:login.php');
+        }
+}
 
 }
 
@@ -176,7 +180,7 @@ if (isset($_POST['submit'])) {
             ?>
             <input type="text" placeholder="Tên" name="name" required class="box">
             <input type="email" placeholder="Email" name="email" required class="box" id="email">
-            <input type="phone" placeholder="Số điện thoại" name="phone" required class="box" id="password">
+            <input type="number" placeholder="Số điện thoại" name="phone" required class="box" id="password">
             <input type="password" placeholder="Mật khẩu (Tối thiểu 8 kí tự và ít nhất 1 kí tự đặc biệt)" name="password" required class="box">
             <input type="password" placeholder= "Nhập lại mật khẩu" name="confirm_password" required class="box">
             <!-- <input type="file" name="image" class="box" accept="image/jpg, image/png"> -->

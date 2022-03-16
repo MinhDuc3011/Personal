@@ -14,11 +14,16 @@ if (isset($_POST['update_profile'])) {
     $new_password = mysqli_real_escape_string($con, $_POST["new_password"]); 
     $confirm_password = mysqli_real_escape_string($con, $_POST["confirm_password"]); 
 
+    $select = mysqli_query($con, "SELECT * FROM `user_information` WHERE email = '$update_email' AND phone = '$update_phonephone'") or die('query failed');
+    
+
     $specialChars = preg_match('@[^\w]@', $new_password);
 
     if (!empty($current_password) || !empty($new_password)|| !empty($confirm_password)) {
         if($current_password != $old_password) {
             $message[] = "Mật khẩu hiện tại không chính xác";
+        } else if (mysqli_num_rows($select) > 0){ 
+            $message[] = "Email và số điện thoại đã tồn tại";
         } else if(strlen($new_password) < 8 || strlen($new_password) > 16) {
             $message[] = "Sai định dạng mật khẩu";         
         } else if (!$specialChars) {
