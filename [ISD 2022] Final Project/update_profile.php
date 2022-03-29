@@ -14,7 +14,7 @@ if (isset($_POST['update_profile'])) {
     $new_password = mysqli_real_escape_string($con, $_POST["new_password"]); 
     $confirm_password = mysqli_real_escape_string($con, $_POST["confirm_password"]); 
 
-    $select = mysqli_query($con, "SELECT * FROM `user_information` WHERE email = '$update_email' AND phone = '$update_phonephone'") or die('query failed');
+    $select = mysqli_query($con, "SELECT * FROM `user_information` WHERE email = '$update_email' AND phone = '$update_phone'") or die('query failed');
     
 
     $specialChars = preg_match('@[^\w]@', $new_password);
@@ -22,10 +22,12 @@ if (isset($_POST['update_profile'])) {
     if (!empty($current_password) || !empty($new_password)|| !empty($confirm_password)) {
         if($current_password != $old_password) {
             $message[] = "Mật khẩu hiện tại không chính xác";
-        } else if (mysqli_num_rows($select) > 0){ 
-            $message[] = "Email và số điện thoại đã tồn tại";
+        } else if ($new_password != $confirm_password) {
+            $message[] = "Mật khẩu nhập lại không chính xác";
         } else if(strlen($new_password) < 8 || strlen($new_password) > 16) {
             $message[] = "Sai định dạng mật khẩu";         
+        } else if(strlen($update_phone) < 10 || strlen($update_phone) > 10) {
+            $message[] = "Sai định dạng số điện thoại";
         } else if (!$specialChars) {
             $message[] = "Sai định dạng mật khẩu";         
         }else {
@@ -226,21 +228,21 @@ if (isset($_POST['update_profile'])) {
             <div class="flex">
                 <div class="input-box">
                     <span>Tên người dùng</span>
-                    <input type="text" name="update_name" value="<?php echo $fetch['name']; ?>" class = "box" require>
+                    <input type="text" name="update_name" value="<?php echo $fetch['name']; ?>" class = "box" required>
                     <span>Email</span>
-                    <input type="email" name="update_email" value="<?php echo $fetch['email']; ?>" class = "box" require>
+                    <input type="email" name="update_email" value="<?php echo $fetch['email']; ?>" class = "box" required>
                     <span>Số điện thoại</span>
-                    <input type="phone" name="update_phone" value="<?php echo $fetch['phone']; ?>" class = "box" require>
+                    <input type="phone" name="update_phone" value="<?php echo $fetch['phone']; ?>" class = "box" required>
                     
                 </div>
                 <div class="input-box">
                     <input type="hidden" name="old_password" value="<?php echo $fetch['password']; ?>">
                     <span>Mật khẩu hiện tại</span>
-                    <input type="password" name="current_password" class="box" require>
+                    <input type="password" name="current_password" class="box" required>
                     <span>Mật khẩu mới</span>
-                    <input type="password" placeholder="8-16 kí tự và ít nhất 1 kí tự đặc biệt" name="new_password" class="box" require>
+                    <input type="password" placeholder="8-16 kí tự và ít nhất 1 kí tự đặc biệt" name="new_password" class="box" required>
                     <span>Nhập lại mật khẩu mới</span>
-                    <input type="password" name="confirm_password" class="box" require> 
+                    <input type="password" name="confirm_password" class="box" required> 
             </div>
             </div>
             

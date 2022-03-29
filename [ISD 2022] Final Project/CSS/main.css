@@ -872,9 +872,9 @@ footer {
 
 .footer-second a:hover {
     color: #045e52;
-    text-decoration: underline;
     text-decoration-color: black;
     text-align:center;
+    text-decoration: none;
 }
 
 .footer-column-1 {
@@ -919,9 +919,10 @@ footer {
     flex-direction: column;
 }
 
-.footer-column-2 li, .footer-column-3 li {
+.footer-column-2 li , .footer-column-3 li  {
     list-style-type: disc;
 }
+
 
 .footer-last {
     width: 100%;

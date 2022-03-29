@@ -98,14 +98,7 @@ if (isset($_POST['submit'])) {
                     <!--When we click the btnShowAccountInfo this section will be displayed-->
                 </div>
                 <!--Shopping cart-->
-                <div class="shopping-cart">
-                    <div class="sum-prices">
-                        <!--Shopping cart logo-->
-                        <i class="fas fa-shopping-cart shoppingCartButton"></i>
-                        <!--The total prices of products in the shopping cart -->
-                        <h6 id="sum-prices"></h6>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <!-- Navbar bottom part -->

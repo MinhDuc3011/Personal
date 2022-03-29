@@ -13,7 +13,7 @@
     <script src="JS/jquery-3.5.1.min.js"></script>
     <script src="JS/multislider.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>WEB ĐIỆN THOẠI</title>
+    <title>Vua Táo - Điện thoại, phụ kiện chính hãng</title>
 </head>
 
 <body>
@@ -108,8 +108,8 @@
                     <div class="sum-prices">
                         <!--Shopping cart logo-->
                         <i class="fas fa-shopping-cart shoppingCartButton"></i>
+                        <!-- <span>0</span> -->
                         <!--The total prices of products in the shopping cart -->
-                        <h6 id="sum-prices"></h6>
                     </div>
                 </div>
             </div>
